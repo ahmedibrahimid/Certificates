@@ -1,6 +1,6 @@
 # Professional Certificates
 
-**Ahmed Ibrahim** — Geomatics graduate & M.Sc. candidate — SAR/InSAR Remote Sensing, Earth Observation & GIS
+**Ahmed Ibrahim** — Geomatics Engineer & M.Sc. candidate — SAR/InSAR Remote Sensing, Earth Observation & GIS
 
 [LinkedIn](https://linkedin.com/in/ahmedibrahimid)
 
