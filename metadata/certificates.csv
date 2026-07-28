@@ -1,0 +1,22 @@
+# OPTIONAL enrichment layer — this file is NOT the source of truth.
+# Certificates are discovered automatically from the PDF files under certificates/,
+# and their date, issuer and title are derived from the filename
+# (YYYY-MM_issuer_short-course-title.pdf). A certificate does not need a row here.
+#
+# Rows are keyed by file_path (repo-relative, forward slashes).
+# Any NON-EMPTY field overrides the value derived from the filename; empty fields
+# keep the derived value. A file with no row here lands in "Professional & Other".
+#
+# Allowed categories (exact spelling):
+#   SAR/InSAR | Remote Sensing | GIS & Spatial Analysis | Programming & GeoAI |
+#   Surveying & Geodesy | Professional & Other
+#
+# Keep this file public-safe: course, issuer, date and a public verification URL only.
+date,issuer,title,category,credential_url,file_path
+,,Processing SAR Data with ArcGIS Notebooks,SAR/InSAR,,certificates/esri/2025-11_esri_processing-sar-data-arcgis-notebooks.pdf
+,,Imagery in Action (ArcGIS MOOC),Remote Sensing,,certificates/esri/2025-11_esri_arcgis-imagery-mooc.pdf
+,,Spatial Data Science: The New Frontier in Analytics,GIS & Spatial Analysis,,certificates/esri/2023-10_esri_spatial-data-science.pdf
+,,Drought Monitoring and Prediction Using Earth Observations,Remote Sensing,,certificates/nasa-arset/2024-08_nasa-arset_drought-monitoring.pdf
+,,Advanced Remote Sensing with ENVI,Remote Sensing,,certificates/narss/2024-02_narss_advanced-remote-sensing-envi.pdf
+# Append new rows below this line. Example of a row with a verification link:
+# 2024-05,MBRSC,Space Data Analytics,Remote Sensing,https://issuer.example.org/verify/ABC123,certificates/other/2024-05_mbrsc_space-data-analytics.pdf
