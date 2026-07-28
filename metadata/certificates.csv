@@ -1,22 +1,53 @@
-# OPTIONAL enrichment layer — this file is NOT the source of truth.
-# Certificates are discovered automatically from the PDF files under certificates/,
-# and their date, issuer and title are derived from the filename
-# (YYYY-MM_issuer_short-course-title.pdf). A certificate does not need a row here.
+# SINGLE SOURCE OF TRUTH for this repository.
+# README.md is generated from this file by scripts/generate_readme.py.
+# Nothing is inferred from filenames — every value shown in the README is copied
+# literally from a column below. Full procedure: docs/ADDING-A-CERTIFICATE.md
 #
-# Rows are keyed by file_path (repo-relative, forward slashes).
-# Any NON-EMPTY field overrides the value derived from the filename; empty fields
-# keep the derived value. A file with no row here lands in "Professional & Other".
+# COLUMNS (all ten, in this exact order):
+#   date             YYYY-MM. Required.
+#   issuer           Organization name as it should appear. Required.
+#   title            Course title as printed on the certificate. Required.
+#   category         Required. One of exactly:
+#                      SAR/InSAR | Remote Sensing | GIS & Spatial Analysis |
+#                      Programming & GeoAI | Surveying & Geodesy | Professional & Other
+#   field            Short topic tag, e.g. InSAR, Cartography, Deep Learning.
+#   credential_type  Required. "verified" (has an online verification page) or "pdf".
+#   credential_url   The https:// verification URL. Required when type is "verified".
+#   pdf_path         Repo-relative path, forward slashes. Required.
+#                    Must sit in the folder matching its category.
+#   description      One factual sentence about the course.
+#   skills           Skills separated by SEMICOLONS, e.g. InSAR;Python;Mapping
 #
-# Allowed categories (exact spelling):
-#   SAR/InSAR | Remote Sensing | GIS & Spatial Analysis | Programming & GeoAI |
-#   Surveying & Geodesy | Professional & Other
-#
-# Keep this file public-safe: course, issuer, date and a public verification URL only.
-date,issuer,title,category,credential_url,file_path
-,,Processing SAR Data with ArcGIS Notebooks,SAR/InSAR,,certificates/esri/2025-11_esri_processing-sar-data-arcgis-notebooks.pdf
-,,Imagery in Action (ArcGIS MOOC),Remote Sensing,,certificates/esri/2025-11_esri_arcgis-imagery-mooc.pdf
-,,Spatial Data Science: The New Frontier in Analytics,GIS & Spatial Analysis,,certificates/esri/2023-10_esri_spatial-data-science.pdf
-,,Drought Monitoring and Prediction Using Earth Observations,Remote Sensing,,certificates/nasa-arset/2024-08_nasa-arset_drought-monitoring.pdf
-,,Advanced Remote Sensing with ENVI,Remote Sensing,,certificates/narss/2024-02_narss_advanced-remote-sensing-envi.pdf
-# Append new rows below this line. Example of a row with a verification link:
-# 2024-05,MBRSC,Space Data Analytics,Remote Sensing,https://issuer.example.org/verify/ABC123,certificates/other/2024-05_mbrsc_space-data-analytics.pdf
+# RULES
+#   - One row per certificate. Order here does not matter; the generator sorts
+#     newest first automatically.
+#   - Wrap a value in "double quotes" if it contains a comma.
+#   - Lines starting with # and blank lines are ignored.
+#   - Run: python scripts/generate_readme.py --check   to validate before committing.
+date,issuer,title,category,field,credential_type,credential_url,pdf_path,description,skills
+2026-06,ESGRS,Beyond the Fringe: Pushing the Boundaries of Precision in Earth Observation,SAR/InSAR,InSAR,pdf,,certificates/sar-insar/2026-06_esgrs_beyond-the-fringe-precision-earth-observation.pdf,Advanced interferometric SAR techniques for high-precision Earth observation measurements.,InSAR;Interferometry;Deformation Monitoring;Earth Observation
+2026-05,Esri,Make an Impact with Modern Geo Apps,GIS & Spatial Analysis,Web GIS Apps,verified,,certificates/gis-spatial-analysis/2026-05_esri_make-an-impact-with-modern-geo-apps.pdf,Building and sharing modern web-based GIS applications on the ArcGIS platform.,Web GIS;ArcGIS Online;App Configuration;Data Sharing
+2026-04,ESGRS,Open Source GeoAI for Earth Observation: Practical Tools for AI-Driven Analysis and Visualization,Programming & GeoAI,GeoAI,pdf,,certificates/programming-geoai/2026-04_esgrs_open-source-geoai-for-earth-observation.pdf,Open-source tooling for AI-driven analysis and visualization of Earth observation data.,GeoAI;Python;Open Source Geospatial;Data Visualization
+2025-11,Esri,Processing SAR Data in ArcGIS Notebooks,SAR/InSAR,SAR Processing,verified,,certificates/sar-insar/2025-11_esri_processing-sar-data-in-arcgis-notebooks.pdf,Processing and analysis of synthetic aperture radar imagery inside ArcGIS Notebooks.,SAR;ArcGIS Notebooks;Python;Radar Image Processing
+2025-11,Esri,The ArcGIS Imagery MOOC: Foundations and Frontiers,Remote Sensing,Imagery Analysis,verified,,certificates/remote-sensing/2025-11_esri_arcgis-imagery-mooc.pdf,Foundations of imagery and raster analysis across the ArcGIS imagery workflow.,Imagery Analysis;Raster Processing;ArcGIS Pro;Change Detection
+2024-12,NARSS,"Research Scholarship — Land Subsidence Monitoring Using InSAR, Ras El Bar",SAR/InSAR,InSAR,pdf,,certificates/sar-insar/2024-12_narss_land-subsidence-monitoring-insar-ras-el-bar.pdf,Research scholarship applying InSAR time-series analysis to land subsidence at Ras El Bar.,InSAR;Time-Series Analysis;Land Subsidence;Applied Research
+2024-08,NASA ARSET,"Drought Monitoring, Prediction and Projection Using NASA Earth System Data",Remote Sensing,Drought Monitoring,pdf,,certificates/remote-sensing/2024-08_nasa-arset_drought-monitoring-prediction-projection.pdf,"Use of NASA Earth system datasets for drought monitoring, prediction and projection.",Drought Indices;NASA Earthdata;Hydrology;Time-Series Analysis
+2024-07,ALX Africa,AI Career Essentials,Programming & GeoAI,AI Foundations,verified,,certificates/programming-geoai/2024-07_alx_ai-career-essentials.pdf,Applied foundations of AI tools for professional and workplace productivity.,AI Tools;Prompt Engineering;Digital Productivity;Professional Skills
+2024-06,Esri,Extracting Features with Deep Learning Using ArcGIS Online,Programming & GeoAI,Deep Learning,verified,,certificates/programming-geoai/2024-06_esri_extracting-features-with-deep-learning.pdf,Training and applying deep learning models to extract features from imagery in ArcGIS Online.,Deep Learning;Feature Extraction;ArcGIS Online;Imagery
+2024-06,Esri,GIS for Climate Action,GIS & Spatial Analysis,Climate Applications,verified,,certificates/gis-spatial-analysis/2024-06_esri_gis-for-climate-action.pdf,Applying GIS analysis and mapping to climate mitigation and adaptation problems.,Spatial Analysis;Climate Data;Mapping;ArcGIS
+2024-05,Esri,Cartography,GIS & Spatial Analysis,Cartography,verified,,certificates/gis-spatial-analysis/2024-05_esri_cartography.pdf,Cartographic design principles and map production workflows in ArcGIS Pro.,Cartography;Map Design;Symbology;ArcGIS Pro
+2024-04,NASA ARSET,Introduction to Lightning Observations and Applications,Remote Sensing,Atmospheric EO,pdf,,certificates/remote-sensing/2024-04_nasa-arset_introduction-to-lightning-observations.pdf,Satellite and ground-based lightning observations and their practical applications.,Atmospheric Remote Sensing;Satellite Data;Hazard Monitoring;Data Analysis
+2024-03,Esri,Transform AEC Projects with GIS and BIM,GIS & Spatial Analysis,GIS & BIM,verified,,certificates/gis-spatial-analysis/2024-03_esri_transform-aec-projects-with-gis-and-bim.pdf,"Integrating GIS with BIM data for architecture, engineering and construction projects.",GIS-BIM Integration;ArcGIS Pro;3D Data;Infrastructure
+2024-03,NASA ARSET,Large-Scale Applications of Machine Learning Using Remote Sensing for Agricultural Solutions,Programming & GeoAI,Machine Learning,pdf,,certificates/programming-geoai/2024-03_nasa-arset_machine-learning-remote-sensing-agriculture.pdf,Machine learning applied to remote sensing data for large-scale agricultural monitoring.,Machine Learning;Agricultural Monitoring;Remote Sensing;Python
+2024-02,ITIDA,InnovEgypt Program — Innovation and Entrepreneurship,Professional & Other,Entrepreneurship,pdf,,certificates/professional-other/2024-02_itida_innovegypt-innovation-and-entrepreneurship.pdf,"Innovation and entrepreneurship program covering ideation, business modelling and startup fundamentals.",Innovation;Entrepreneurship;Business Modelling;Pitching
+2024-02,NARSS,Advanced Remote Sensing Using ENVI Software,Remote Sensing,Image Processing,pdf,,certificates/remote-sensing/2024-02_narss_advanced-remote-sensing-using-envi.pdf,Advanced image processing and analysis workflows in ENVI.,ENVI;Image Classification;Spectral Analysis;Preprocessing
+2023-10,Esri,Spatial Data Science: The New Frontier in Analytics,GIS & Spatial Analysis,Spatial Data Science,verified,,certificates/gis-spatial-analysis/2023-10_esri_spatial-data-science.pdf,"Spatial statistics, clustering and prediction workflows for geographic data.",Spatial Statistics;Clustering;Python;ArcGIS Pro
+2023-10,Esri,Imagery in Action,Remote Sensing,Imagery Analysis,verified,,certificates/remote-sensing/2023-10_esri_imagery-in-action.pdf,Practical imagery and remote sensing workflows for real-world analysis.,Imagery Analysis;Raster Processing;Change Detection;ArcGIS
+2023-08,NARSS,Fundamentals of Remote Sensing and GIS,Remote Sensing,RS & GIS Fundamentals,pdf,,certificates/remote-sensing/2023-08_narss_fundamentals-of-remote-sensing-and-gis.pdf,Core principles of remote sensing and geographic information systems.,Remote Sensing;GIS;Image Interpretation;Spatial Data
+2023-07,A Capital Holding,Field Surveying Training,Surveying & Geodesy,Field Surveying,pdf,,certificates/surveying-geodesy/2023-07_a-capital-holding_field-surveying-training.pdf,Practical field surveying training covering instrument setup and data collection.,Total Station;Levelling;Field Data Collection;Surveying
+2023-04,AmCham Egypt — Career Development Center,Quality Control Course,Professional & Other,Quality Control,pdf,,certificates/professional-other/2023-04_amcham_quality-control-course.pdf,Quality control principles and practices in a professional work environment.,Quality Control;Process Improvement;Documentation;Standards
+2022-08,NRIAG,Introduction to GIS,GIS & Spatial Analysis,GIS Fundamentals,pdf,,certificates/gis-spatial-analysis/2022-08_nriag_introduction-to-gis.pdf,"Introductory GIS concepts, data models and basic spatial analysis.",GIS;Spatial Data;Map Production;Data Management
+# ---------------------------------------------------------------------------
+# Append new rows below this line, one per certificate. Template:
+# date,issuer,title,category,field,credential_type,credential_url,pdf_path,description,skills
+# ---------------------------------------------------------------------------
