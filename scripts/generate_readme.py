@@ -26,7 +26,7 @@ GUIDE_PATH = "docs/ADDING-A-CERTIFICATE.md"
 
 NAME = "Ahmed Ibrahim"
 ROLE = (
-    "Geomatics graduate & M.Sc. candidate — SAR/InSAR Remote Sensing, "
+    "Geomatics Engineer & M.Sc. candidate — SAR/InSAR Remote Sensing, "
     "Earth Observation & GIS"
 )
 LINKEDIN = "https://linkedin.com/in/ahmedibrahimid"
