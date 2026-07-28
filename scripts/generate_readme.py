@@ -59,7 +59,14 @@ CATEGORIES = {
 }
 CATEGORY_ORDER = list(CATEGORIES)
 
-CREDENTIAL_TYPES = ["verified", "pdf"]
+CREDENTIAL_TYPES = ["verified", "pdf", "internship_reference"]
+
+# Types that are NOT certifications. They are listed separately, excluded from
+# the certificate counts, and live outside certificates/.
+NON_CERTIFICATE_TYPES = {"internship_reference"}
+
+# Where a non-certificate document is expected to sit, by credential_type.
+NON_CERTIFICATE_FOLDERS = {"internship_reference": "experience/internships"}
 
 SKILL_SEPARATOR = ";"
 
@@ -145,8 +152,12 @@ def validate(rows, header):
             )
         elif ctype == "verified" and not row["credential_url"]:
             warn(line, "%s — credential_type is 'verified' but credential_url is empty." % label)
-        elif ctype == "pdf" and row["credential_url"]:
-            warn(line, "%s — credential_type is 'pdf' but a credential_url is present." % label)
+        elif ctype != "verified" and row["credential_url"]:
+            warn(
+                line,
+                "%s — credential_type is %r but a credential_url is present."
+                % (label, row["credential_type"]),
+            )
 
         if row["credential_url"] and not row["credential_url"].startswith("https://"):
             warn(line, "%s — credential_url should be an https:// URL." % label)
@@ -177,6 +188,15 @@ def validate(rows, header):
         if row["pdf_path"]:
             if not (REPO_ROOT / row["pdf_path"]).is_file():
                 notice("PDF not yet in the repository: %s" % row["pdf_path"])
+            elif ctype in NON_CERTIFICATE_TYPES:
+                expected = NON_CERTIFICATE_FOLDERS[ctype]
+                actual = Path(row["pdf_path"]).parent.as_posix()
+                if actual != expected:
+                    warn(
+                        line,
+                        "%s — credential_type %r expects the file in %s/ but it sits in %s/."
+                        % (label, ctype, expected, actual),
+                    )
             else:
                 expected = CATEGORIES.get(row["category"])
                 folder = Path(row["pdf_path"]).parent.name
@@ -239,7 +259,12 @@ def sort_key(row):
     return (row["date"], row["title"].lower())
 
 
-def build_readme(rows):
+def build_readme(all_rows):
+    # Non-certificate documents (internship references and the like) are listed
+    # separately and never counted as certifications.
+    rows = [r for r in all_rows if r["credential_type"].lower() not in NON_CERTIFICATE_TYPES]
+    other = [r for r in all_rows if r["credential_type"].lower() in NON_CERTIFICATE_TYPES]
+
     total = len(rows)
     issuers = {r["issuer"] for r in rows if r["issuer"]}
     verified = [r for r in rows if r["credential_type"].lower() == "verified"]
@@ -324,6 +349,37 @@ def build_readme(rows):
                     escape(row["issuer"]),
                     escape(row["category"]) if row["category"] else "—",
                     credential_cell(row),
+                )
+            )
+        add("")
+
+    if other:
+        add("## Professional experience")
+        add("")
+        add(
+            "Supporting documents that are **not** certifications — internship "
+            "reference letters and similar records. They are listed here for "
+            "completeness and are excluded from the certificate count above."
+        )
+        add("")
+        add("| Date | Document | Issuer | Field | Skills | Type |")
+        add("| --- | --- | --- | --- | --- | --- |")
+        for row in sorted(other, key=sort_key, reverse=True):
+            label = row["credential_type"].replace("_", " ").capitalize()
+            link = (
+                "[%s](%s)" % (label, row["pdf_path"])
+                if row["pdf_path"] and (REPO_ROOT / row["pdf_path"]).is_file()
+                else escape(label)
+            )
+            add(
+                "| %s | %s | %s | %s | %s | %s |"
+                % (
+                    escape(row["date"]),
+                    certificate_cell(row),
+                    escape(row["issuer"]),
+                    escape(row["field"]) if row["field"] else "—",
+                    skills_cell(row),
+                    link,
                 )
             )
         add("")

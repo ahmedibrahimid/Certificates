@@ -81,6 +81,15 @@ subject of the course, then put the PDF in the matching folder.
 | `Surveying & Geodesy` | `certificates/surveying-geodesy/` | Field surveying, levelling, GNSS, geodetic measurement |
 | `Professional & Other` | `certificates/professional-other/` | Anything else — entrepreneurship, quality, soft skills, management |
 
+### Documents that are not certifications
+
+An internship reference letter, employer testimonial or similar record is **not**
+a certificate. Set `credential_type` to `internship_reference`, and put the file
+in `experience/internships/` rather than under `certificates/`. It is listed in
+its own "Professional experience" section of the README and is deliberately
+excluded from the certificate count. Its `category` field is still required — use
+it as a subject tag.
+
 **Tie-breaking rules**, so the same certificate always lands in the same place:
 
 - If it involves radar, it is `SAR/InSAR` — even if it also teaches Python.
@@ -112,9 +121,9 @@ The ten fields, in this exact order:
 | 3 | `title` | Yes | The course title exactly as printed on the certificate. |
 | 4 | `category` | Yes | One of the six, spelled exactly as in the table above. |
 | 5 | `field` | Recommended | A short topic tag, e.g. `InSAR`, `Cartography`, `Deep Learning`. |
-| 6 | `credential_type` | Yes | `verified` if the issuer hosts an online verification page, otherwise `pdf`. |
+| 6 | `credential_type` | Yes | `verified` if the issuer hosts an online verification page, `pdf` if not. Use `internship_reference` for a document that is **not** a certification (see below). |
 | 7 | `credential_url` | If `verified` | The full `https://` verification URL. Leave empty when type is `pdf`. |
-| 8 | `pdf_path` | Yes | Repo-relative path with forward slashes, e.g. `certificates/sar-insar/2025-11_esri_....pdf`. |
+| 8 | `pdf_path` | Yes | Repo-relative path with forward slashes, e.g. `certificates/sar-insar/2025-11_esri_....pdf`. For `internship_reference`, use `experience/internships/`. |
 | 9 | `description` | Recommended | One factual sentence about what the course covered. |
 | 10 | `skills` | Recommended | Skills separated by **semicolons**: `InSAR;Python;Mapping`. |
 
